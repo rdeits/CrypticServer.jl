@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -28,7 +27,7 @@ function fetch_with_params(path, params) {
 
 function Answer(props) {
   return (
-    <h2>{props.answer}</h2>
+    <h2>{props.answer} ({Math.round(100 * props.confidence)}%)</h2>
   );
 }
 
@@ -41,7 +40,7 @@ function Explanation(props) {
 function Solution(props) {
   return (
     <div>
-      <Answer answer={props.solution.answer} />
+      <Answer answer={props.solution.answer} confidence={props.solution.similarity} />
       <Explanation explanation={props.solution.explanation} />
     </div>
   );
@@ -50,13 +49,11 @@ function Solution(props) {
 function SampleClue(props) {
   return (
       <div>
-        <span>{props.query.clue}</span>
-        <form onSubmit={(evt) => {
-          props.onSubmit(props.query);
-          evt.preventDefault();
-        }}>
-          <input type="submit" value="Try" />
-        </form>
+        <button onClick={evt => props.onSubmit(props.query)}>
+          Try
+        </button>
+        <span>{`${props.query.clue} (${props.query.length}) ${props.query.pattern}` }</span>
+        <span>&rarr; {props.answer.toUpperCase()}</span>
       </div>
     );
 }
@@ -64,7 +61,7 @@ function SampleClue(props) {
 function Results(props) {
   if (props.results === null) {
     return null;
-  } else if (props.results.length == 0) {
+  } else if (props.results.length === 0) {
     return <span>No results found.</span>
   } else {
     return (
@@ -127,8 +124,19 @@ class CrypticInterface extends React.Component {
         <span>
           This is a general tool for solving cryptic (or "British-style") crossword clues, written entirely in the <a href="https://julialang.org/">Julia</a> programming language. You can find the source code for the solver on Github at <a href="https://github.com/rdeits/CrypticCrosswords.jl">rdeits/CrypticCrosswords.jl</a>.
         </span>
-        <SampleClue query={{clue: "Spin broken shingle", length: 7, pattern: ""}} onSubmit={this.solveClue}
-        />
+        <div>
+          <h2>Examples</h2>
+          <ul>
+            <li><SampleClue query={{clue: "Couch is unfinished until now", length: 4, pattern: ""}} answer={"sofa"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "Spin broken shingle", length: 7, pattern: ""}} answer={"english"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "Initially babies are naked", length: 4, pattern: ""}} answer={"bare"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "At first, congoers like us eschew solving hints", length: 5, pattern: ""}} answer={"clues"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "Initial meetings disappoint rosemary internally", length: 6, pattern: ""}} answer={"intros"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "M's Rob Titon pitching slider?", length: 10, pattern: ""}} answer={"trombonist"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "Aerial worker Anne on the way up", length: 7, pattern: ""}} answer={"antenna"} onSubmit={this.solveClue} /></li>
+            <li><SampleClue query={{clue: "In glee over unusual color", length: 10, pattern: "^o"}} answer={"antenna"} onSubmit={this.solveClue} /></li>
+          </ul>
+        </div>
         <ClueInput onValueChange={query => this.setState({query: query})}
          onSubmit={this.solveClue}
          query={this.state.query}
