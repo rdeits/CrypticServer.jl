@@ -54,7 +54,7 @@ function solve_clue(req)
     json([lower(d) for d in derivations])
 end
 
-const STATIC_DIR = normpath(joinpath(@__DIR__, "..", "frontend", "build"))
+const STATIC_DIR = normpath(joinpath(@__DIR__, "..", "frontend", "dist"))
 
 function main(; host=ip"127.0.0.1", port=8000)
     @app server = (

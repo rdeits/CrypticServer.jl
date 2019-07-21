@@ -1,38 +1,24 @@
 {
-  "name": "demo",
+  "name": "CrypticCrosswords",
   "version": "0.1.0",
-  "private": true,
+  "main": "src/index.js",
+  "author": "Robin Deits",
+  "repository": "https://github.com/rdeits/CrypticServer.jl",
+  "license": "MIT",
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "npm-watch": "^0.1.8",
-    "react-scripts": "3.0.1"
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "imports-loader": "^0.8.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "watch": "npm-watch"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "watch": {
-    "build": "src/"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "webpack"
   }
 }
