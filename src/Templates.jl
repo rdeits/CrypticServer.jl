@@ -1,6 +1,6 @@
 module Templates
 
-using CrypticCrosswords: DerivedSolution
+using CrypticCrosswords: DerivedSolution, explain
 using HTTP: HTTP
 
 sanitize(s::AbstractString) = replace(s, r"[<>]" => "")
@@ -38,6 +38,9 @@ function Results(derived_solutions)
 end
 
 function ClueInput(clue="", length="", pattern="")
+    if length === nothing
+        length = ""
+    end
     """
     <form action="solve" method="GET">
         <label for="clue">Clue</label>
