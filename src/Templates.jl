@@ -43,20 +43,33 @@ function ClueInput(clue="", length="", pattern="")
     end
     """
     <form action="solve" method="GET">
-        <label for="clue">Clue</label>
-        <input id="clue" type="text" name="clue" value="$(sanitize(clue))"/>
-        <label for="length">Length (optional)</label>
-        <input id="length" type="number" name="length" value="$(string(length))"/>
-        <label for="pattern">Pattern (regex, optional)</label>
-        <input id="pattern" type="text" name="pattern" value="$(sanitize(pattern))"/>
-        <input type="submit" value="Solve"/>
+        <div class="flex-outer">
+            <div class="flex-col" style="max-width: 90%">
+                <label for="clue">Clue</label>
+                <input id="clue" type="text" name="clue" value="$(sanitize(clue))" style="width: 40em; max-width: 100%"/>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-col">
+                <label for="length">Length (optional)</label>
+                <input id="length" type="number" name="length" value="$(string(length))" style="width: 9em"/>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-col">
+                <label for="pattern">Regex (optional)</label>
+                <input id="pattern" type="text" name="pattern" value="$(sanitize(pattern))" style="width: 10em"/>
+            </div>
+            <div class="spacer"></div>
+            <input type="submit" value="Solve" style="margin-top: 1em"/>
+        </div>
     </form>
     """
 end
 
 function HomeLink()
     """
-    <h1><a href="/">CrypticCrosswords.jl</a></h1>
+    <div class="home-link">
+        <h1><a href="/">CrypticCrosswords.jl</a></h1>
+    </div>
     """
 end
 
@@ -103,6 +116,35 @@ function Examples()
     """
 end
 
+function Style()
+    """
+    <style>
+    h1,h2,h3 {
+        font-family: 'lucida grande', sans-serif;
+    }
+    .flex-outer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-col label {
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+    }
+    .spacer {
+        width: 1em;
+    }
+    .home-link a {
+        color: black;
+    }
+    </style>
+    """
+end
+
+
 function Index(body)
     """
     <!DOCTYPE html>
@@ -113,9 +155,12 @@ function Index(body)
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <title>CrypticCrosswords.jl</title>
+        $(Style())
       </head>
-      <body>
-      $(body)
+      <body style="background-color: whitesmoke;">
+        <div style="background-color: white; width: 90%; margin: auto; max-width: 800pt; box-shadow: 2px 2px 8px #aaa; padding: 1em 1em 1em 1em">
+                $(body)
+        </div>
       </body>
     </html>
     """
